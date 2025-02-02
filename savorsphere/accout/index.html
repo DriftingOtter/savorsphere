@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Recipes - SavorSphere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Your personal recipe collection on SavorSphere." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/2ad54d8774.js" crossorigin="anonymous"></script>
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body class="h-screen bg-gray-100">
+  <div class="flex flex-col h-full">
+    <!-- Navbar -->
+    <nav class="w-full bg-black text-white py-4 px-8">
+      <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold">SavorSphere</h1>
+        <div class="text-xl">
+          <span>Welcome, <span id="username"></span> | <span id="uid"></span></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content Section -->
+    <div class="w-full p-8 flex-grow">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-3xl font-bold">Your Recipes</h2>
+        <button id="logoutBtn" class="text-lg text-blue-600">Logout</button>
+      </div>
+
+      <!-- Recipe Cards Container -->
+      <div id="recipeCards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <!-- Recipe cards will be populated here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fetch user data and recipes from the server
+      fetch('/account')
+        .then(response => response.json())
+        .then(data => {
+          if (data.user) {
+            // Update username and UID
+            document.getElementById('username').textContent = data.user.username;
+            document.getElementById('uid').textContent = data.user.uid;
+
+            // Populate recipe cards
+            const recipeCards = document.getElementById('recipeCards');
+            if (data.recipes && data.recipes.length > 0) {
+              data.recipes.forEach(recipe => {
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow-lg');
+                card.innerHTML = `
+                  <h3 class="text-2xl font-semibold">${recipe.title}</h3>
+                  <p class="text-gray-700 mt-2">${recipe.body_text.substring(0, 100)}...</p>
+                  <div class="mt-4">
+                    <span class="text-gray-600">Tags: ${recipe.tags}</span>
+                    <div class="flex items-center mt-2">
+                      <span class="text-gray-600 text-sm">${recipe.date}</span>
+                    </div>
+                  </div>
+                `;
+                recipeCards.appendChild(card);
+              });
+            } else {
+              const noRecipesMessage = document.createElement('p');
+              noRecipesMessage.textContent = 'You have no recipes yet. Start creating some!';
+              noRecipesMessage.classList.add('text-gray-500', 'italic');
+              recipeCards.appendChild(noRecipesMessage);
+            }
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error);
+        });
+
+      // Logout button functionality
+      const logoutBtn = document.getElementById('logoutBtn');
+      logoutBtn.addEventListener('click', function() {
+        fetch('/logout')
+          .then(() => {
+            window.location.href = '../loginsignup/index.html';
+          })
+          .catch(error => {
+            console.error('Error logging out:', error);
+          });
+      });
+    });
+  </script>
+</body>
+</html>
+

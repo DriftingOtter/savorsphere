@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SavorSphere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A platform for recipes and culinary trends." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/2ad54d8774.js" crossorigin="anonymous"></script>
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body class="h-screen flex">
+  <!-- Left side with SavorSphere and video background -->
+  <div class="relative w-1/2 overflow-hidden">
+    <video autoplay muted loop class="absolute top-0 left-0 w-full h-full object-cover filter blur-sm">
+      <source src="https://videos.pexels.com/video-files/2894881/2894881-uhd_3840_2160_24fps.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60"></div>
+    <div class="relative z-10 flex items-center justify-center h-full">
+      <h1 class="text-white text-6xl font-bold">SavorSphere</h1>
+    </div>
+  </div>
+
+  <!-- Right side with login/signup form -->
+  <div class="w-1/2 bg-white flex items-center justify-center">
+    <div class="w-[450px] max-w-full">
+      <div class="relative w-[300px] h-[50px] mx-auto mb-8 bg-gray-200 rounded-full overflow-hidden">
+        <div id="slider" class="absolute top-0 w-1/2 h-full bg-black transition-all duration-300 ease-in-out"></div>
+        <button id="loginBtn" class="relative z-10 w-1/2 h-full float-left text-lg font-bold transition-colors duration-300 text-white">
+          Log In
+        </button>
+        <button id="signupBtn" class="relative z-10 w-1/2 h-full float-left text-lg font-bold transition-colors duration-300 text-black">
+          Sign Up
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="space-y-6">
+        <h2 class="text-3xl font-bold text-center mb-6">Welcome Back</h2>
+        <input type="email" name="email" id="loginEmail" placeholder="Email" class="w-full p-4 border border-gray-300 rounded-lg text-lg">
+        <input type="password" name="password" id="loginPassword" placeholder="Password" class="w-full p-4 border border-gray-300 rounded-lg text-lg">
+        <button type="submit" id="loginSubmit" class="w-full py-4 bg-black text-white text-lg font-bold rounded-lg hover:bg-gray-800 transition-colors">
+          Log In
+        </button>
+        <div id="loginError" class="text-red-500 text-center mt-4 hidden">Invalid credentials, please try again.</div>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signupForm" class="space-y-6 hidden">
+        <h2 class="text-3xl font-bold text-center mb-6">Create Account</h2>
+        <input type="text" name="username" id="signupUsername" placeholder="Username" class="w-full p-4 border border-gray-300 rounded-lg text-lg">
+        <input type="email" name="email" id="signupEmail" placeholder="Email" class="w-full p-4 border border-gray-300 rounded-lg text-lg">
+        <input type="password" name="password" id="signupPassword" placeholder="Password" class="w-full p-4 border border-gray-300 rounded-lg text-lg">
+        <button type="submit" id="signupSubmit" class="w-full py-4 bg-black text-white text-lg font-bold rounded-lg hover:bg-gray-800 transition-colors">
+          Sign Up
+        </button>
+        <div id="signupError" class="text-red-500 text-center mt-4 hidden">Error creating account, please try again.</div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../scripts/loginSignup.js"></script>
+</body>
+</html>
+
