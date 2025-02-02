@@ -230,6 +230,12 @@ app.get('/logout', (req, res) => {
   });
 });
 
+// Serve About page
+app.get('/savorsphere/about', (req, res) => {
+  res.sendFile(join(__dirname, 'savorsphere/about/index.html'));
+});
+
+
 app.listen(8080, () => {
   console.log('Server is running on http://localhost:8080');
 });
